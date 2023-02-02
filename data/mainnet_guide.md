@@ -412,39 +412,59 @@ teritorid tendermint unsafe-reset-all --home $HOME/.teritorid
 ```
 ___
 ### All validators info
+```python
+LIST OF ALL ACTIVE VALIDATORS 
+```
 ```bash
-# List of all active validators 
 teritorid q staking validators -o json --limit=1000 \
 | jq '.validators[] | select(.status=="BOND_STATUS_BONDED")' \
 | jq -r '.tokens + " - " + .description.moniker' \
 | sort -gr | nl
 ```
+#
+```python
+LIST OF ALL INACTIVE VALIDATORS 
+```
 ```bash
-# List of all inactive validators 
 teritorid q staking validators -o json --limit=1000 \
 | jq '.validators[] | select(.status=="BOND_STATUS_UNBONDED")' \
 | jq -r '.tokens + " - " + .description.moniker' \
 | sort -gr | nl
 ```
-
+___
 ### Another useful commands
+```python
+ROOT → YOUR NODE
+```
 ```bash
-# Root -> your node
 su -l $USER_NAME
 ```
+#
+```python
+CHECK INTERNET CONNECTION
+```
 ```bash
-# Check internet connection
 curl -sL yabs.sh | bash -s -- -fg
 ```
+#
+```python
+SERVER LOAD
+```
 ```bash
-# Server load
 sudo htop
 ```
+#
+```python
+FILE STRUCTURE
+```
 ```bash
-# File structure
 ncdu
 ```
+___
 ## Delete node
+```python
+USE COMMAND
+```
 ```bash
 sudo systemctl stop teritorid && \
 sudo systemctl disable teritorid; \
