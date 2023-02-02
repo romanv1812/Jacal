@@ -102,7 +102,7 @@ Live Peers UPD at 11:01 UTC ⏳ 02.02.23 🗓️  Number Of Active Peers: = 17
 ---
 # HOW TO USE?
 ```python
-Recovery From State-Sync
+RECOVERY FROM STATE-SYNC
 ```
 ```bash
 sudo systemctl stop teritorid && \
@@ -124,21 +124,21 @@ sudo systemctl restart teritorid && journalctl -u teritorid -f -o cat
 ```
 #
 ```python
-Download Wasm
+DOWNLOAD WASM
 ```
 ```bash
 curl -s http://65.109.85.170:8000/teritori-wasm.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.teritorid/data
 ```
 #
 ```python
-Download Addrbook
+DOWNLOAD ADDRBOOK
 ```
 ```bash
 curl -s http://65.109.85.170:8000/addrbook.json > $HOME/.teritorid/config/addrbook.json
 ```
 #
 ```python
-Recovery From Snapshot
+RECOVERY FROM SNAPSHOT
 ```
 ```bash
 sudo systemctl stop teritorid
