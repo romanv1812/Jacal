@@ -205,7 +205,20 @@ ___
 ```python
 CHECK SYNCHRONIZATION OF YOUR NODE # IF THE RESULT IS FALSE, THE NODE IS SYNCHRONIZED
 ```
-
+```bash
+curl -s $NODE/status | jq .result.sync_info.catching_up
+```
+#
+```python
+CHECK BALANCE # MINIMUM QUANTITY TO CREATE A VALIDATOR 1000000
+```
+```bash
+teritorid q bank balances $ADDRESS
+```
+#
+```python
+CREATE A VALIDATOR
+```
 ```bash 
 teritorid tx staking create-validator \
   --amount=1000000utori \
@@ -224,6 +237,7 @@ teritorid tx staking create-validator \
   --security-contact=$SECURITY_CONTACT \
   -y
   ```
+___
 
 ```bash
 sudo systemctl stop teritorid && \
