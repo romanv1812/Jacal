@@ -306,7 +306,7 @@ CONNECTED PEERS
 ```bash
 curl -s $NODE/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr | split(":")[2])"' | wc -l
 ```
-
+___
 ### Validator info
 
 ```python
@@ -343,7 +343,7 @@ GET BALANCE
 ```bash
 teritorid q bank balances $ADDRESS
 ```
-
+___
 ### Voting
 ```python
 VOTE
@@ -358,7 +358,7 @@ CHECK ALL VOTED PROPOSALS
 ```bash
 teritorid q gov proposals --voter $ADDRESS
 ```
-
+___
 ### Actions
 ```python
 EDIT VALIDATOR
@@ -366,30 +366,35 @@ EDIT VALIDATOR
 ```bash
 teritorid tx staking edit-validator --website="<YOUR_WEBSITE>" --details="<YOUR_DESCRIPTION>" --moniker="<YOUR_NEW_MONIKER>" --from=$WALLET --fees 5000utori
 ```
+#
 ```python
 UNJAIL
 ```
 ```bash
 teritorid tx slashing unjail --from $WALLET --fees 5000utori
 ```
+#
 ```python
 BOND MORE TOKENS (IF YOU WANT INCREASE YOUR VALIDATOR STAKE YOU SHOULD BOND MORE TO YOUR VALOPER ADDRESS):
 ```
 ```bash
 teritorid tx staking delegate $VALOPER <TOKENS_COUNT>utori--from $WALLET --fees 5000utori -y
 ```
+#
 ```python
 UNDELEGATE
 ```
 ```bash
 teritorid tx staking unbond $VALOPER <TOKENS_COUNT>utori --from $WALLET --fees 5000utori -y
 ```
+#
 ```python
 SEND TOKENS. 1 TOKEN = 1000000 (COSMOS)
 ```
 ```bash
 teritorid tx bank send $WALLET <WALLET_TO> <TOKENS_COUNT>utori --fees 5000utori --gas auto
 ```
+#
 ```python
 CHANGE PEERS AND SEEDS
 ```
@@ -398,13 +403,14 @@ peers="<PEERS>"
 seeds="<SEEDS>"
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$peers\"/; s/^seeds *=.*/seeds = \"$seeds\"/" $HOME/.teritorid/config/config.toml
 ```
+#
 ```python
 RESET PRIVATE VALIDATOR FILE TO GENESIS STATE AND DELETE ADDRBOOK.JSON
 ```
 ```bash
 teritorid tendermint unsafe-reset-all --home $HOME/.teritorid
 ```
-
+___
 ### All validators info
 ```bash
 # List of all active validators 
