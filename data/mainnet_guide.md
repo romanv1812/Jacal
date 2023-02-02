@@ -239,43 +239,16 @@ teritorid tx staking create-validator \
   ```
 ___
 
-```bash
-sudo systemctl stop teritorid && \
-teritorid tendermint unsafe-reset-all --home $HOME/.teritorid --keep-addr-book
-```
-```bash
-# RPC example: 5.161.106.127:26657
-SNAP_RPC=""
-```
-```bash
-LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
-BLOCK_HEIGHT=$((LATEST_HEIGHT-100)); \
-TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
-```
-```bash
-# Check data
-echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
-# Output example (numbers will be different):
-# 376080 374080 F0C78FD4AE4DB5E76A298206AE3C602FF30668C521D753BB7C435771AEA47189
-```
-```bash
-# Peer example: 22cd56c20132817d609025f42c5e263e70157e64@5.161.106.127:26656
-peers=""
-sed -i.bak -e  "s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" $HOME/.teritorid/config/config.toml
-```
-```bash
-sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
-s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
-s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
-s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"| ; \
-s|^(seeds[[:space:]]+=[[:space:]]+).*$|\1\"\"|" $HOME/.teritorid/config/config.toml
-```
-```bash
-sudo systemctl restart teritorid && sudo journalctl -u teritorid -f -o cat
-```
 ## Update node
+```python
+CHANGE VARIABLES # EXAMPLE v.1.2.1
+```
 ```bash
 TAG_NAME=""
+```
+#
+```python
+UPDATE NODE
 ```
 ```bash
 sudo systemctl stop teritorid && \
@@ -287,97 +260,148 @@ make install && \
 sudo systemctl restart teritorid && \
 journalctl -u teritorid -f -o cat
 ```
-## Useful commands
+___
+## USEFUL COMMANDS
 
 ### Node status
+
+```python
+SERVICE LOGS
+```
 ```bash
-# Service logs
 journalctl -u teritorid -f -o cat
 ```
+#
+```python
+SERVICE STATUS
+```
 ```bash
-# Service status
 systemctl status teritorid
 ```
+#
+```python
+CHECK NODE STATUS
+```
 ```bash
-# Check node status
 curl -s $NODE/status
 ```
+#
+```python
+CHECK SYNCHRONIZATION OF YOUR NODE # IF THE RESULT IS FALSE, THE NODE IS SYNCHRONIZED
+```
 ```bash
-# Check synchronization of your node, if the result is false, the node is synchronized
 curl -s $NODE/status | jq .result.sync_info.catching_up
 ```
-```bash
-# Check consensus 
-curl -s $NODE/consensus_state  | jq '.result.round_state.height_vote_set[0].prevotes_bit_array'
+#
+```python
+CHECK CONSENSUS 
 ```
 ```bash
-# Connected peers
+curl -s $NODE/consensus_state  | jq '.result.round_state.height_vote_set[0].prevotes_bit_array'
+```
+#
+```python
+CONNECTED PEERS
+```
+```bash
 curl -s $NODE/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr | split(":")[2])"' | wc -l
 ```
 
 ### Validator info
+
+```python
+GET VALIDATOR ADDRESS 
+```
 ```bash
-# Get validator address 
 echo $VALOPER
 ```
+#
+```python
+GET WALLET ADDRESS
+```
 ```bash
-# Get wallet address
 echo $ADDRESS
 ```
-```bash
-# Jail, tombstoned, start_height, index_offset
-teritorid q slashing signing-info $(teritorid tendermint show-validator)
+#
+```python
+JAIL, TOMBSTONED, START_HEIGHT, INDEX_OFFSET
 ```
 ```bash
-# Get peer (e.g. 72cc19c8435d662677b2ea627e649f39b5bc8abb@5.161.70.110:26656
+teritorid q slashing signing-info $(teritorid tendermint show-validator)
+```
+#
+```python
+GET PEER 
+```
+```bash
 echo "$(teritorid tendermint show-node-id)@$(curl ifconfig.me):$(curl -s $NODE/status | jq -r '.result.node_info.listen_addr' | cut -d':' -f3)"
 ```
 ### Wallet
+```python
+GET BALANCE
+```
 ```bash
-# Get balance
 teritorid q bank balances $ADDRESS
 ```
 
 ### Voting
-```bash
-# Vote
-teritorid tx gov vote <PROPOSAL_ID> <yes|no> --from $WALLET --fees 5000utori -y
+```python
+VOTE
 ```
 ```bash
-# Check all voted proposals
+teritorid tx gov vote <PROPOSAL_ID> <yes|no> --from $WALLET --fees 5000utori -y
+```
+#
+```python
+CHECK ALL VOTED PROPOSALS
+```
+```bash
 teritorid q gov proposals --voter $ADDRESS
 ```
 
 ### Actions
+```python
+EDIT VALIDATOR
+```
 ```bash
-# Edit validator
 teritorid tx staking edit-validator --website="<YOUR_WEBSITE>" --details="<YOUR_DESCRIPTION>" --moniker="<YOUR_NEW_MONIKER>" --from=$WALLET --fees 5000utori
 ```
+```python
+UNJAIL
+```
 ```bash
-# Unjail
 teritorid tx slashing unjail --from $WALLET --fees 5000utori
 ```
+```python
+BOND MORE TOKENS (IF YOU WANT INCREASE YOUR VALIDATOR STAKE YOU SHOULD BOND MORE TO YOUR VALOPER ADDRESS):
+```
 ```bash
-# Bond more tokens (if you want increase your validator stake you should bond more to your valoper address):
 teritorid tx staking delegate $VALOPER <TOKENS_COUNT>utori--from $WALLET --fees 5000utori -y
 ```
+```python
+UNDELEGATE
+```
 ```bash
-# Undelegate
 teritorid tx staking unbond $VALOPER <TOKENS_COUNT>utori --from $WALLET --fees 5000utori -y
 ```
-```bash
-# Send tokens. 1 token = 1000000 (Cosmos)
-teritorid tx bank send $WALLET <WALLET_TO> <TOKENS_COUNT>utori --fees 5000utori
-# e.g. teritorid tx bank send $WALLET cosmos10h3t6rtrjwxqlw0jgwc540rthuclhvrzhndkeg 1000000utori --gas auto
+```python
+SEND TOKENS. 1 TOKEN = 1000000 (COSMOS)
 ```
 ```bash
-# Change peers and seeds
+teritorid tx bank send $WALLET <WALLET_TO> <TOKENS_COUNT>utori --fees 5000utori --gas auto
+```
+```python
+CHANGE PEERS AND SEEDS
+```
+```bash
 peers="<PEERS>"
 seeds="<SEEDS>"
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$peers\"/; s/^seeds *=.*/seeds = \"$seeds\"/" $HOME/.teritorid/config/config.toml
 ```
+```python
+RESET PRIVATE VALIDATOR FILE TO GENESIS STATE AND DELETE ADDRBOOK.JSON
+```
 ```bash
-# Reset private validator file to genesis state and delete addrbook.json
 teritorid tendermint unsafe-reset-all --home $HOME/.teritorid
 ```
 
