@@ -1,7 +1,6 @@
 [<img src='https://user-images.githubusercontent.com/83868103/216377361-e56f8cff-7e4a-472d-85b0-015da3e95288.png' alt='discord'  width='49.7%'>](https://github.com/romanv1812/Jacal/blob/main/data/mainnet_guide.md)
 [<img src='https://user-images.githubusercontent.com/83868103/216376966-053d9180-0723-4a8a-b77d-ee793dbc727e.png' alt='discord'  width='49.7%'>](https://restake.app/jackal/jklvaloper1qg9pjld3c26svc06u8r3k4cmjlaqg88jkald0p/stake)
 [<img src='https://user-images.githubusercontent.com/83868103/216319382-71371073-ea4e-4fc9-bbb2-803cf43e553b.png' alt='discord'  width='100%'>](https://linktr.ee/jackal_protocol)
-
 ___
 ```python
 Services status  🟢
@@ -149,3 +148,4 @@ wget -O -  http://65.109.85.170:8000/teritori-db.tar.lz4 | lz4 -dc - | tar -xf -
 sudo systemctl start teritorid; \
 sudo journalctl -u teritorid -f
 ```
+___
