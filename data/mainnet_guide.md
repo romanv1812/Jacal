@@ -1,6 +1,6 @@
 ## Prepare
 ```python
-UPDATE IF NEEDED AND INSTALL PACKAGES
+UPDATE AND INSTALL PACKAGES
 ```
 ```bash
 sudo apt update && sudo apt upgrade -y && \
