@@ -6,7 +6,7 @@ ___
 
 
 ___
-### WHAT IS JACAL PROTOCOL?
+### WHAT IS JACKAL PROTOCOL?
 #
 #### Jackal Protocol is a decentralized and scalable cross-chain solution that offers a unique combination of security and interoperability to the DeFi ecosystem. It is built on the Cosmos SDK, a highly modular and extensible blockchain development platform, and leverages Tendermint consensus to ensure fast and secure transactions.
 
