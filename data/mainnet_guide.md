@@ -1,11 +1,14 @@
 ## Prepare
-### Update if needed and install packages
+```python
+UPDATE IF NEEDED AND INSTALL PACKAGES
+```
 ```bash
 sudo apt update && sudo apt upgrade -y && \
 sudo apt install curl tar wget clang pkg-config libssl-dev libleveldb-dev jq build-essential bsdmainutils git make ncdu htop screen unzip bc fail2ban htop -y
 ```
-
-### Installing GO v1.19.4
+```python
+INSTALLING GO v1.19.4
+```
 ```bash
 cd $HOME && \
 ver="1.19.4" && \
@@ -17,10 +20,12 @@ echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> $HOME/.bash_profile &
 source $HOME/.bash_profile && \
 go version
 ```
-
-## Add variables
+___
+## Variables
+```python
+INPUT YOUR DATA ⬇︎
+```
 ```bash
-# Input your data
 MONIKER="<YOUR_NEW_MONIKER>"
 WALLET="<YOUR_WALLET_NAME>"
 WEBSITE="<YOUR_WEBSITE>"
@@ -28,7 +33,9 @@ IDENTITY="<<YOUR_KEYBASE_ID>"
 DETAILS="<YOUR_DESCRIPTION>"
 SECURITY_CONTACT="<YOUR_EMAIL>"
 ```
-
+```python
+SET VARIABLES 
+```
 ```bash
 echo "export MONIKER=$MONIKER" >> $HOME/.bash_profile && \
 echo "export WALLET=$WALLET" >> $HOME/.bash_profile && \
@@ -38,44 +45,71 @@ echo "export DETAILS=$DETAILS" >> $HOME/.bash_profile && \
 echo "export SECURITY_CONTACT=$SECURITY_CONTACT" >> $HOME/.bash_profile && \
 source $HOME/.bash_profile
 ```
+___
 ## Build and configuration
-```bash 
-# Build binary 
+```python
+BUILD BINARY
+```
+```bash
 git clone https://github.com/TERITORI/teritori-chain.git teritorid && \
 cd teritorid && \
 make install
 ```
+#
+```python
+CONFIGURATION
+```
 ```bash 
-# Initialisation
 teritorid init $MONIKER --chain-id teritori-1 && \
 teritorid config chain-id teritori-1 && \
 teritorid config keyring-backend os
 ```
-```bash
-# Add wallet
-teritorid keys add $WALLET
-# or 
-teritorid keys add $WALLET --recover
+#
+```python
+ADD NEW WALLET OR RESTORE OLD WALLET
 ```
 ```bash
-# Set variables 
+teritorid keys add $WALLET
+```
+```bash
+teritorid keys add $WALLET --recover
+```
+#
+```python
+SET VARIABLES 
+```
+```bash
 VALOPER=$(teritorid keys show $WALLET --bech val -a) && \
 ADDRESS=$(teritorid keys show $WALLET --address) && \
 echo "export VALOPER=$VALOPER" >> $HOME/.bash_profile && \
 echo "export ADDRESS=$ADDRESS" >> $HOME/.bash_profile && \
 source $HOME/.bash_profile
 ```
-```bash 
-# Peers and seeds
+#
+```python
+ADD PEERS AND SEEDS
+```
+```bash
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"26175f13ada3d61c93bca342819fd5dc797bced0@teritori.nodejumper.io:28656,722b63e6c65628b929f22013dcbcde980210cb44@176.9.127.54:26656,8f28518afd31a42ea81bb3232a50ab0cec4dcdf7@51.158.236.131:26656,647bbbc30d26fbbb2f7d19aafe30ed77a92c4748@[2a01:4f9:6b:2e5b::4]:26656,5a98d637a16b16bf425a4a785c9d11a7d1e5b8a0@65.21.131.215:26736,f813a00f52de54a49aea3211b89a65ae6133eac2@88.99.167.148:26686,358f13bd95d91517053a58f4d30205842672837f@104.37.187.214:60656,ce3baba928ae06cd3ff0af20aec888a82ddffef7@54.37.129.171:26656,3bd3a20d7c8a26a20927289a7a6bffecf71de53e@51.81.155.97:10856,48980875839186e08e12ebf0d9a2803b45206833@65.109.92.241:38026,526d8c7c44f59be9a39d7463c576b68c0db23174@65.108.234.23:15956\"/; s/^seeds *=.*/seeds = \"$SEEDS\"/" $HOME/.teritorid/config/config.toml
 ```
-```bash 
-# Download ZIP genesis 
+#
+```python
+DOWNLOAD GENESIS 
+```
+```bash
 wget -O $HOME/.teritorid/config/genesis.json https://media.githubusercontent.com/media/TERITORI/teritori-chain/v1.1.2/mainnet/teritori-1/genesis.json
 ```
+___
 ## Change PORT
+```python
+SPECIFY NODE NUMBER
+```
 ```bash
 NODES_NUM="0"
+```
+#
+```python
+CHANGING PORTS
 ```
 ```bash
 sed -i.bak -e "\
@@ -98,6 +132,7 @@ echo "export NODE=http://localhost:$((NODES_NUM+26))657" >> $HOME/.bash_profile 
 source $HOME/.bash_profile && \
 teritorid config node $NODE
 ```
+___
 ## Memory optimization
 ```bash 
 # Memory optimization. Removes unused data from the database.
