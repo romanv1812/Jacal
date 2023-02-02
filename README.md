@@ -1,6 +1,6 @@
 
-[<img src='https://user-images.githubusercontent.com/83868103/216317797-bb090a83-7a8c-4b1e-97d9-377e5fa38ec4.png' alt='discord'  width='32.9%'>](https://github.com/romanv1812/Teritori/blob/main/data/services.md)
-[<img src='https://user-images.githubusercontent.com/83868103/216318185-7412f8cc-da21-4588-be0a-eceafece41e1.png' alt='discord'  width='32.9%'>](https://github.com/romanv1812/Teritori/blob/main/data/services.md)
+[<img src='https://user-images.githubusercontent.com/83868103/216317797-bb090a83-7a8c-4b1e-97d9-377e5fa38ec4.png' alt='discord'  width='33%'>](https://github.com/romanv1812/Teritori/blob/main/data/services.md)
+[<img src='https://user-images.githubusercontent.com/83868103/216318185-7412f8cc-da21-4588-be0a-eceafece41e1.png' alt='discord'  width='33%'>](https://github.com/romanv1812/Teritori/blob/main/data/services.md)
 [<img src='https://user-images.githubusercontent.com/83868103/216318517-1e69a5ab-ada6-4f9b-b9ce-43f7ad7456da.png' alt='discord'  width='32.9%'>](https://github.com/romanv1812/Teritori/blob/main/data/services.md)
 ![Слой 1](https://user-images.githubusercontent.com/83868103/216319382-71371073-ea4e-4fc9-bbb2-803cf43e553b.png)
 
