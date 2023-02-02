@@ -23,7 +23,7 @@ go version
 ___
 ## Variables
 ```python
-INPUT YOUR DATA ⬇︎
+CHANGE VARIABLES
 ```
 ```bash
 MONIKER="<YOUR_NEW_MONIKER>"
@@ -79,8 +79,12 @@ teritorid keys add $WALLET --recover
 SET VARIABLES 
 ```
 ```bash
-VALOPER=$(teritorid keys show $WALLET --bech val -a) && \
-ADDRESS=$(teritorid keys show $WALLET --address) && \
+VALOPER=$(teritorid keys show $WALLET --bech val -a) # ENTER PASSWORD
+```
+```bash
+ADDRESS=$(teritorid keys show $WALLET --address) # ENTER PASSWORD
+```
+```bash
 echo "export VALOPER=$VALOPER" >> $HOME/.bash_profile && \
 echo "export ADDRESS=$ADDRESS" >> $HOME/.bash_profile && \
 source $HOME/.bash_profile
@@ -102,7 +106,7 @@ wget -O $HOME/.teritorid/config/genesis.json https://media.githubusercontent.com
 ___
 ## Change PORT
 ```python
-SPECIFY NODE NUMBER
+CHANGE VARIABLES # CURRENT VARIABLE IS DEFAULT PORTS
 ```
 ```bash
 NODES_NUM="0"
@@ -134,8 +138,10 @@ teritorid config node $NODE
 ```
 ___
 ## Memory optimization
+```python
+CHANGE VARIABLES # CURRENT VARIABLES ARE PREFERRED
+```
 ```bash 
-# Memory optimization. Removes unused data from the database.
 indexer="null" && \
 min_retain_blocks=1 && \
 snapshot_interval="100" && \
@@ -144,7 +150,13 @@ pruning_keep_recent="100" && \
 pruning_keep_every="0" && \
 pruning_interval="10" && \
 min_retain_blocks="1" && \
-inter_block_cache="false" && \
+inter_block_cache="false" 
+```
+#
+```python
+SET VARIABLES 
+```
+```bash
 sed -i.bak -e "s/^indexer *=.*/indexer = \"$indexer\"/" $HOME/.teritorid/config/config.toml && \
 sed -i.bak -e "s/^min-retain-blocks *=.*/min-retain-blocks = \"$min_retain_blocks\"/" $HOME/.teritorid/config/app.toml && \
 sed -i.bak -e "s/^snapshot-interval *=.*/snapshot-interval = \"$snapshot_interval\"/" $HOME/.teritorid/config/app.toml && \
@@ -155,10 +167,12 @@ sed -i.bak -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"
 sed -i.bak -e "s/^min-retain-blocks *=.*/min-retain-blocks = \"$min_retain_blocks\"/" $HOME/.teritorid/config/app.toml && \
 sed -i.bak -e "s/^inter-block-cache *=.*/inter-block-cache = \"$inter_block_cache\"/" $HOME/.teritorid/config/app.toml
 ```
-
+___
 ## Start node
-```bash 
-# Create service 
+```python
+CREATE SERVICE 
+```
+```bash
 sudo tee /etc/systemd/system/teritorid.service > /dev/null <<EOF
 [Unit]
 Description=teritorid Node
@@ -175,18 +189,23 @@ LimitNOFILE=65535
 WantedBy=multi-user.target
 EOF
 ```
+#
+```python
+START SERVICE 
+```
 ```bash
-# Start service 
 sudo systemctl daemon-reload && \
 sudo systemctl enable teritorid && \
 sudo systemctl restart teritorid && \
 sudo journalctl -u teritorid -f -o cat
 ```
-```bash
-# Check synchronization of your node, if the result is false, the node is synchronized
-curl -s $NODE/status | jq .result.sync_info.catching_up
-```
+___
+
 ## Create a validator
+```python
+CHECK SYNCHRONIZATION OF YOUR NODE # IF THE RESULT IS FALSE, THE NODE IS SYNCHRONIZED
+```
+
 ```bash 
 teritorid tx staking create-validator \
   --amount=1000000utori \
